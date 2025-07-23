@@ -2,84 +2,79 @@
 <html lang="nl">
 <head>
   <meta charset="UTF-8">
-  <title>Ventilator</title>
+  <title>Heb jij het koud?</title>
   <style>
     body {
       margin: 0;
       padding: 0;
-      background-color: black;
+      height: 100vh;
+      background-color: #111;
+      color: white;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
+      font-family: Arial, sans-serif;
+    }
+
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 30px;
+    }
+
+    .knoppen {
+      display: flex;
+      gap: 20px;
+    }
+
+    button {
+      padding: 15px 30px;
+      font-size: 1.5rem;
+      background-color: #0077cc;
       color: white;
-      font-family: monospace;
-      height: 100vh;
-    }
-
-    img {
-      width: 100vw;
-      height: 100vh;
-      object-fit: cover;
-    }
-
-    #timer {
-      position: absolute;
-      top: 30px;
-      font-size: 6rem;
-      font-family: 'Courier New', Courier, monospace;
-      color: #00ff99;
-      background-color: #000;
-      padding: 10px 30px;
+      border: none;
       border-radius: 10px;
-      border: 2px solid #00ff99;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
     }
 
-    #eindtekst {
-      position: absolute;
-      font-size: 4rem;
-      text-align: center;
+    button:hover {
+      background-color: #005fa3;
+    }
+
+    #neeBericht {
       display: none;
+      margin-top: 20px;
+      font-size: 1.5rem;
       color: #ffcc00;
-      background-color: rgba(0, 0, 0, 0.85);
-      padding: 20px;
-      border-radius: 15px;
     }
   </style>
 </head>
 <body>
 
-  <div id="timer">05:00</div>
-  <div id="eindtekst">OKÉ, NU HEB JE HET KOUD ❄️</div>
-  <img id="fanImage" src="fanon.png" alt="Ventilator">
-  <audio id="fanSound" src="fansound.mp3" autoplay loop></audio>
+  <h1 id="vraag">Heb jij het koud?</h1>
+
+  <div class="knoppen">
+    <button onclick="gaNaarVentilator()">Ja</button>
+    <button onclick="toonNee()">Nee</button>
+  </div>
+
+  <div id="neeBericht">Gebruik deze site als je het warm hebt.</div>
 
   <script>
-    const timerElement = document.getElementById("timer");
-    const eindtekst = document.getElementById("eindtekst");
-    const fanSound = document.getElementById("fanSound");
-
-    let tijd = 300; // 5 minuten in seconden
-
-    function updateTimer() {
-      const minuten = Math.floor(tijd / 60);
-      const seconden = tijd % 60;
-      timerElement.textContent =
-        String(minuten).padStart(2, "0") + ":" + String(seconden).padStart(2, "0");
-
-      if (tijd > 0) {
-        tijd--;
-      } else {
-        clearInterval(teller);
-        timerElement.style.display = "none";
-        document.getElementById("fanImage").style.display = "none";
-        fanSound.pause();
-        eindtekst.style.display = "block";
-      }
+    function gaNaarVentilator() {
+      window.location.href = "ventilator.html";
     }
 
-    const teller = setInterval(updateTimer, 1000);
-    updateTimer();
+    function toonNee() {
+      const bericht = document.getElementById("neeBericht");
+      bericht.style.display = "block";
+
+      // Wacht 5 seconden, dan herlaadt de pagina (terug naar beginvraag)
+      setTimeout(() => {
+        location.reload();
+      }, 5000);
+    }
   </script>
 
 </body>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <title>Heb jij het koud?</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      background-color: #111;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      font-family: Arial, sans-serif;
+    }
+
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 30px;
+    }
+
+    .knoppen {
+      display: flex;
+      gap: 20px;
+    }
+
+    button {
+      padding: 15px 30px;
+      font-size: 1.5rem;
+      background-color: #0077cc;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #005fa3;
+    }
+
+    #neeBericht {
+      display: none;
+      margin-top: 20px;
+      font-size: 1.5rem;
+      color: #ffcc00;
+    }
+  </style>
+</head>
+<body>
+
+  <h1 id="vraag">Heb jij het koud?</h1>
+
+  <div class="knoppen">
+    <button onclick="gaNaarVentilator()">Ja</button>
+    <button onclick="toonNee()">Nee</button>
+  </div>
+
+  <div id="neeBericht">Gebruik deze site als je het warm hebt.</div>
+
+  <script>
+    function gaNaarVentilator() {
+      window.location.href = "ventilator.html";
+    }
+
+    function toonNee() {
+      const bericht = document.getElementById("neeBericht");
+      bericht.style.display = "block";
+
+      // Wacht 5 seconden, dan herlaadt de pagina (terug naar beginvraag)
+      setTimeout(() => {
+        location.reload();
+      }, 5000);
+    }
+  </script>
+
+</body>
+</html>

@@ -9,67 +9,65 @@
       padding: 0;
       box-sizing: border-box;
     }
+
     html, body {
       height: 100%;
       width: 100%;
-      overflow: hidden;
       font-family: Arial, sans-serif;
+      overflow: hidden;
+      background-color: black;
     }
+
     body {
       position: relative;
     }
-    /* Foto fullscreen */
-    #fanImage {
+
+    img {
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      object-fit: cover;
+      object-fit: contain; /* Belangrijk: hele foto zichtbaar */
       z-index: 0;
     }
 
-    /* Afstandsbediening */
-    .remote {
+    .controls {
       position: absolute;
-      bottom: 30px;
+      bottom: 40px;
       left: 50%;
       transform: translateX(-50%);
-      z-index: 1;
       display: flex;
       gap: 20px;
+      z-index: 1;
     }
-    .remote button {
+
+    button {
       padding: 15px 30px;
       font-size: 18px;
       border: none;
       border-radius: 10px;
+      background-color: #0077cc;
+      color: white;
       cursor: pointer;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-      transition: transform 0.2s;
+      box-shadow: 0 0 10px rgba(0,0,0,0.5);
+      transition: background-color 0.3s ease;
     }
-    .remote button:active {
-      transform: scale(0.95);
-    }
-    .on-btn {
-      background-color: #28a745;
-      color: white;
-    }
-    .off-btn {
-      background-color: #dc3545;
-      color: white;
+
+    button:hover {
+      background-color: #005fa3;
     }
   </style>
 </head>
 <body>
 
-  <!-- Foto fullscreen -->
-  <img id="fanImage" src="ventilator.jpg" alt="Ventilator" />
+  <!-- Volledig zichtbare ventilatorfoto -->
+  <img src="ventilator.jpg" alt="Ventilator" />
 
   <!-- Afstandsbediening -->
-  <div class="remote">
-    <button class="on-btn" onclick="fanOn()">Aan</button>
-    <button class="off-btn" onclick="fanOff()">Uit</button>
+  <div class="controls">
+    <button id="turnOn">Aan</button>
+    <button id="turnOff">Uit</button>
   </div>
 
   <!-- Geluid -->
@@ -77,15 +75,17 @@
 
   <script>
     const fanSound = document.getElementById('fanSound');
+    const btnOn = document.getElementById('turnOn');
+    const btnOff = document.getElementById('turnOff');
 
-    function fanOn() {
+    btnOn.addEventListener('click', () => {
       fanSound.play();
-    }
+    });
 
-    function fanOff() {
+    btnOff.addEventListener('click', () => {
       fanSound.pause();
-      fanSound.currentTime = 0; // reset naar begin
-    }
+      fanSound.currentTime = 0;
+    });
   </script>
 
 </body>

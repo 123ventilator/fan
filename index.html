@@ -2,57 +2,90 @@
 <html lang="nl">
 <head>
   <meta charset="UTF-8" />
-  <title>Mijn Ventilator</title>
+  <title>Ventilator Afstandsbediening</title>
   <style>
-    body {
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    html, body {
+      height: 100%;
+      width: 100%;
+      overflow: hidden;
       font-family: Arial, sans-serif;
-      text-align: center;
-      margin: 40px;
-      background-color: #f0f0f0;
     }
-    img {
-      max-width: 300px;
-      border-radius: 15px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    body {
+      position: relative;
     }
-    button {
-      margin-top: 20px;
+    /* Foto fullscreen */
+    #fanImage {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 0;
+    }
+
+    /* Afstandsbediening */
+    .remote {
+      position: absolute;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 1;
+      display: flex;
+      gap: 20px;
+    }
+    .remote button {
       padding: 15px 30px;
       font-size: 18px;
       border: none;
       border-radius: 10px;
-      background-color: #0077cc;
-      color: white;
       cursor: pointer;
-      transition: background-color 0.3s ease;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+      transition: transform 0.2s;
     }
-    button:hover {
-      background-color: #005fa3;
+    .remote button:active {
+      transform: scale(0.95);
+    }
+    .on-btn {
+      background-color: #28a745;
+      color: white;
+    }
+    .off-btn {
+      background-color: #dc3545;
+      color: white;
     }
   </style>
 </head>
 <body>
 
-  <h1>Mijn Ventilator</h1>
-  
-  <!-- Ventilator foto -->
-  <img src="ventilator.jpg" alt="Foto van mijn ventilator" />
+  <!-- Foto fullscreen -->
+  <img id="fanImage" src="ventilator.jpg" alt="Ventilator" />
 
-  <!-- Knop voor ventilator geluid -->
-  <div>
-    <button id="playSoundBtn">Speel ventilator geluid af</button>
+  <!-- Afstandsbediening -->
+  <div class="remote">
+    <button class="on-btn" onclick="fanOn()">Aan</button>
+    <button class="off-btn" onclick="fanOff()">Uit</button>
   </div>
 
-  <!-- Geluidselement -->
-  <audio id="fanSound" src="fansound.mp3"></audio>
+  <!-- Geluid -->
+  <audio id="fanSound" src="fansound.mp3" loop></audio>
 
   <script>
-    const btn = document.getElementById('playSoundBtn');
-    const audio = document.getElementById('fanSound');
+    const fanSound = document.getElementById('fanSound');
 
-    btn.addEventListener('click', () => {
-      audio.play();
-    });
+    function fanOn() {
+      fanSound.play();
+    }
+
+    function fanOff() {
+      fanSound.pause();
+      fanSound.currentTime = 0; // reset naar begin
+    }
   </script>
 
 </body>

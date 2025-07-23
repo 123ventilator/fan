@@ -28,7 +28,7 @@
       left: 0;
       width: 100%;
       height: 100%;
-      object-fit: contain; /* Belangrijk: hele foto zichtbaar */
+      object-fit: contain;
       z-index: 0;
     }
 
@@ -61,8 +61,8 @@
 </head>
 <body>
 
-  <!-- Volledig zichtbare ventilatorfoto -->
-  <img src="ventilator.jpg" alt="Ventilator" />
+  <!-- Afbeelding -->
+  <img id="fanImage" src="ventilator.jpg" alt="Ventilator" />
 
   <!-- Afstandsbediening -->
   <div class="controls">
@@ -74,15 +74,18 @@
   <audio id="fanSound" src="fansound.mp3" loop></audio>
 
   <script>
+    const fanImage = document.getElementById('fanImage');
     const fanSound = document.getElementById('fanSound');
     const btnOn = document.getElementById('turnOn');
     const btnOff = document.getElementById('turnOff');
 
     btnOn.addEventListener('click', () => {
+      fanImage.src = "fanon.jpg"; // Toon ventilator AAN
       fanSound.play();
     });
 
     btnOff.addEventListener('click', () => {
+      fanImage.src = "ventilator.jpg"; // Terug naar UIT
       fanSound.pause();
       fanSound.currentTime = 0;
     });

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <title>Ventilator met geluid</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin: 40px;
+      background-color: #f0f0f0;
+    }
+    img {
+      max-width: 300px;
+      border-radius: 15px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    }
+    button {
+      margin-top: 20px;
+      padding: 15px 30px;
+      font-size: 18px;
+      border: none;
+      border-radius: 10px;
+      background-color: #0077cc;
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    button:hover {
+      background-color: #005fa3;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Mijn Ventilator</h1>
+  
+  <!-- Ventilator foto: vervang dit pad door jouw eigen foto -->
+  <img src="ventilator.jpg" alt="Foto van mijn ventilator" />
+
+  <!-- Geluidsknop -->
+  <div>
+    <button id="playSoundBtn">Speel ventilator geluid af</button>
+  </div>
+
+  <!-- Geluidselement: vervang dit pad door jouw eigen geluidsbestand -->
+  <audio id="fanSound" src="ventilator.mp3"></audio>
+
+  <script>
+    const btn = document.getElementById('playSoundBtn');
+    const audio = document.getElementById('fanSound');
+
+    btn.addEventListener('click', () => {
+      audio.play();
+    });
+  </script>
+
+</body>
+</html>

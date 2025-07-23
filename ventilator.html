@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="nl">
 <head>
-  <meta charset="UTF-8" />
-  <title>Ventilator Afstandsbediening</title>
+  <meta charset="UTF-8">
+  <title>Ventilator</title>
   <style>
     * {
       margin: 0;
@@ -10,85 +10,85 @@
       box-sizing: border-box;
     }
 
-    html, body {
-      height: 100%;
-      width: 100%;
-      font-family: Arial, sans-serif;
-      overflow: hidden;
-      background-color: black;
-    }
-
     body {
+      background-color: black;
+      color: white;
+      font-family: 'Courier New', Courier, monospace;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
       position: relative;
     }
 
-    img {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
+    #fanImage {
+      max-width: 100%;
+      max-height: 100%;
       object-fit: contain;
       z-index: 0;
-    }
-
-    .controls {
       position: absolute;
-      bottom: 40px;
-      left: 50%;
-      transform: translateX(-50%);
-      display: flex;
-      gap: 20px;
-      z-index: 1;
     }
 
-    button {
-      padding: 15px 30px;
-      font-size: 18px;
-      border: none;
+    #timer {
+      position: absolute;
+      top: 30px;
+      font-size: 6rem;
+      color: #00ff99;
+      background-color: #000;
+      padding: 10px 30px;
       border-radius: 10px;
-      background-color: #0077cc;
-      color: white;
-      cursor: pointer;
-      box-shadow: 0 0 10px rgba(0,0,0,0.5);
-      transition: background-color 0.3s ease;
+      border: 2px solid #00ff99;
+      z-index: 2;
     }
 
-    button:hover {
-      background-color: #005fa3;
+    #message {
+      position: absolute;
+      color: #ffcc00;
+      font-size: 4rem;
+      text-align: center;
+      background-color: rgba(0, 0, 0, 0.85);
+      padding: 30px;
+      border-radius: 20px;
+      display: none;
+      z-index: 3;
     }
   </style>
 </head>
 <body>
 
-  <!-- Afbeelding -->
-  <img id="fanImage" src="ventilator.jpg" alt="Ventilator" />
-
-  <!-- Afstandsbediening -->
-  <div class="controls">
-    <button id="turnOn">Aan</button>
-    <button id="turnOff">Uit</button>
-  </div>
-
-  <!-- Geluid -->
-  <audio id="fanSound" src="fansound.mp3" loop></audio>
+  <img id="fanImage" src="fanon.png" alt="Ventilator">
+  <div id="timer">05:00</div>
+  <div id="message">OKÉ NU HEB JE HET KOUD ❄️</div>
+  <audio id="fanSound" src="fansound.mp3" autoplay loop></audio>
 
   <script>
-    const fanImage = document.getElementById('fanImage');
-    const fanSound = document.getElementById('fanSound');
-    const btnOn = document.getElementById('turnOn');
-    const btnOff = document.getElementById('turnOff');
+    const timerEl = document.getElementById("timer");
+    const messageEl = document.getElementById("message");
+    const fanImage = document.getElementById("fanImage");
+    const fanSound = document.getElementById("fanSound");
 
-    btnOn.addEventListener('click', () => {
-      fanImage.src = "fanon.png"; // Toon ventilator AAN
-      fanSound.play();
-    });
+    let seconds = 300; // 5 minuten
 
-    btnOff.addEventListener('click', () => {
-      fanImage.src = "ventilator.jpg"; // Terug naar UIT
-      fanSound.pause();
-      fanSound.currentTime = 0;
-    });
+    function updateTimer() {
+      let min = Math.floor(seconds / 60);
+      let sec = seconds % 60;
+      timerEl.textContent =
+        String(min).padStart(2, '0') + ":" + String(sec).padStart(2, '0');
+
+      if (seconds <= 0) {
+        clearInterval(timerInterval);
+        fanImage.style.display = "none";
+        timerEl.style.display = "none";
+        fanSound.pause();
+        messageEl.style.display = "block";
+      }
+
+      seconds--;
+    }
+
+    const timerInterval = setInterval(updateTimer, 1000);
+    updateTimer(); // start meteen
   </script>
 
 </body>
